@@ -111,18 +111,18 @@ const bannerOffset =
 
 		<!-- Set the theme before the page is rendered to avoid a flash -->
 		<script is:inline define:vars={{ DEFAULT_THEME, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue }}>
-  // Force dark mode
-  document.documentElement.classList.add('dark');
+ 		 // Force dark mode
+  			document.documentElement.classList.add('dark');
 
-  // Load the hue from localStorage or default
-  const hue = localStorage.getItem('hue') || configHue;
-  document.documentElement.style.setProperty('--hue', hue);
+  			// Load the hue from localStorage or default
+  			const hue = localStorage.getItem('hue') || configHue;
+  			document.documentElement.style.setProperty('--hue', hue);
 
-  // Calculate --banner-height-extend (multiple of 4 to avoid blurry text)
-  let offset = Math.floor(window.innerHeight * (BANNER_HEIGHT_EXTEND / 100));
-  offset = offset - (offset % 4);
-  document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
-</script>
+  			// Calculate --banner-height-extend (multiple of 4 to avoid blurry text)
+  			let offset = Math.floor(window.innerHeight * (BANNER_HEIGHT_EXTEND / 100));
+  			offset = offset - (offset % 4);
+  			document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
+		</script>
 
 		<style define:vars={{
 			configHue,
