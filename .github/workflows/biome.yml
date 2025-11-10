@@ -2,7 +2,8 @@ name: Deploy Astro site to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -16,31 +17,24 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install pnpm
+      - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
-
-    
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
+      - name: Build Astro site
+        run: pnpm run build
 
-      - name: Build project
-        run: npm run build
-
-      - name: Upload artifact
+      - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: ./dist  # <-- Astro outputs to /dist by default
 
   deploy:
     needs: build
@@ -48,6 +42,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
